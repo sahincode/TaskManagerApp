@@ -15,19 +15,19 @@ public class BaseRepository<T>: IBaseRepository<T> where T : class
         _dbSet = _context.Set<T>();
     }
 
-    public IEnumerable<T> GetAll()
+    public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return _dbSet.ToList();
+        return await _dbSet.ToListAsync();
     }
 
-    public T GetById(int id)
+    public async Task<T> GetByIdAsync(int id)
     {
-        return _dbSet.Find(id);
+        return await _dbSet.FindAsync(id);
     }
 
-    public void Add(T entity)
+    public async Task AddAsync(T entity)
     {
-        _dbSet.Add(entity);
+        await _dbSet.AddAsync(entity);
     }
 
     public void Update(T entity)
@@ -40,9 +40,9 @@ public class BaseRepository<T>: IBaseRepository<T> where T : class
         _dbSet.Remove(entity);
     }
 
-    public void Save()
+    public async Task SaveAsync()
     {
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
     
 }

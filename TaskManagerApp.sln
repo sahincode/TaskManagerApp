@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagerApp.UI", "TaskManagerApp.UI\TaskManagerApp.UI.csproj", "{45E3EAFA-6D72-4CC7-B673-17CB9D60FB04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagerApp.Service", "TaskManagerApp.Service\TaskManagerApp.Service.csproj", "{E05BA616-E4AB-45A0-9187-D69F387DFEDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagerApp.Application", "TaskManagerApp.Application\TaskManagerApp.Application.csproj", "{E05BA616-E4AB-45A0-9187-D69F387DFEDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagerApp.DataAccess", "TaskManagerApp.DataAccess\TaskManagerApp.DataAccess.csproj", "{D3E04007-9472-4069-9468-E1666CA641DB}"
 EndProject

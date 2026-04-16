@@ -2,12 +2,12 @@ namespace TaskManagerApp.Domain.Repositories;
 
 public interface IBaseRepository<T> where T :class
 {
-    IEnumerable<T> GetAll();
-    T GetById(int id);
+    Task<IEnumerable<T>> GetAllAsync();
+    Task<T> GetByIdAsync(int id);
 
-    void Add(T entity);
+    Task AddAsync(T entity);
     void Update(T entity);
     void Delete(T entity);
 
-    void Save();
+    Task SaveAsync();
 }
