@@ -1,10 +1,10 @@
-
-
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using TaskManagerApp.Application.Services;
 using TaskManagerApp.DataAccess.Context;
 using TaskManagerApp.DataAccess.Repositories;
 using TaskManagerApp.Domain.Repositories;
+using TaskManagerApp.UI.Infrastructure.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -13,7 +13,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     )
 );
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddFluentValidation(fv =>
+{
+    fv.RegisterValidatorsFromAssemblyContaining<TaskItemValidator>();
+});
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 

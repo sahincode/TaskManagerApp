@@ -11,15 +11,12 @@ public class TaskController : Controller
     {
         _service = service;
     }
-
-    // GET: /Task?sortBy=priority
+    
     public async Task<IActionResult> Index(string sortBy)
     {
         var tasks = await _service.GetAllAsync(sortBy);
         return View(tasks);
     }
-
-    // GET: /Task/Details/5
     public async Task<IActionResult> Details(int id)
     {
         var task = await _service.GetByIdAsync(id);
@@ -29,18 +26,19 @@ public class TaskController : Controller
 
         return View(task);
     }
-
-    // GET: /Task/Create
+    
     public IActionResult Create()
     {
         return View();
     }
 
-    // POST: /Task/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(TaskItem task)
     {
+        task.Deadline = task.Deadline.HasValue
+            ? DateTime.SpecifyKind(task.Deadline.Value, DateTimeKind.Utc)
+            : null;
         try
         {
             if (!ModelState.IsValid)
@@ -55,8 +53,7 @@ public class TaskController : Controller
             return View(task);
         }
     }
-
-    // GET: /Task/Edit/5
+    
     public async Task<IActionResult> Edit(int id)
     {
         var task = await _service.GetByIdAsync(id);
@@ -66,12 +63,14 @@ public class TaskController : Controller
 
         return View(task);
     }
-
-    // POST: /Task/Edit
+    
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(TaskItem task)
     {
+        task.Deadline = task.Deadline.HasValue
+            ? DateTime.SpecifyKind(task.Deadline.Value, DateTimeKind.Utc)
+            : null;
         try
         {
             if (!ModelState.IsValid)
@@ -86,13 +85,17 @@ public class TaskController : Controller
             return View(task);
         }
     }
-
-    // POST: /Task/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id)
     {
-        await _service.DeleteAsync(id);
+        var task = await _service.GetByIdAsync(id);
+        if (task == null) return NotFound();
+
+        return View(task);
+    }
+    [HttpPost]
+    public async Task<IActionResult> Delete(TaskItem task)
+    {
+        await _service.DeleteAsync(task.Id);
         return RedirectToAction(nameof(Index));
     }
 }

@@ -24,16 +24,12 @@ public class TaskService : ITaskService
 
     public async Task CreateAsync(TaskItem task)
     {
-        Validate(task);
-
         await _repo.AddAsync(task);
         await _repo.SaveAsync();
     }
 
     public async Task UpdateAsync(TaskItem task)
     {
-        Validate(task);
-
         _repo.Update(task);
         await _repo.SaveAsync();
     }
@@ -47,18 +43,5 @@ public class TaskService : ITaskService
 
         _repo.Delete(task);
         await _repo.SaveAsync();
-    }
-
-    private void Validate(TaskItem task)
-    {
-        if (string.IsNullOrWhiteSpace(task.Title))
-            throw new Exception("Title boş ola bilməz");
-        if (task.Deadline.HasValue)
-        {
-            task.Deadline = DateTime.SpecifyKind(task.Deadline.Value, DateTimeKind.Utc);
-        }
-
-        if (task.Deadline.HasValue && task.Deadline < DateTime.Now)
-            throw new Exception("Deadline keçmiş tarix ola bilməz");
     }
 }
