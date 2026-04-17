@@ -17,4 +17,9 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TaskManagerApp.Application\TaskManagerApp.Application.csproj" />
+      <ProjectReference Include="..\TaskManagerApp.DataAccess\TaskManagerApp.DataAccess.csproj" />
+    </ItemGroup>
+
 </Project>

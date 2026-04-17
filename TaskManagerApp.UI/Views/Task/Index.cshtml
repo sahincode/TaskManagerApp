@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<TaskManagerApp.Domain.Entities.TaskItem>
+
+<a asp-action="Create" class=" mx-1 my-1 btn btn-sm btn-outline-success">New Task</a>
+
+<partial name="_TaskList" model="Model" />

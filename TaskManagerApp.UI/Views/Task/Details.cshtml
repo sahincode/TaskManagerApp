@@ -1,0 +1,80 @@
+@model TaskManagerApp.Domain.Entities.TaskItem
+@using TaskManagerApp.Application.Utilities
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-4">
+
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Task Details</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="mb-3">
+                <h5 class="text-muted">Title</h5>
+                <p class="fs-5 fw-semibold">@Model.Title</p>
+            </div>
+
+            <hr />
+
+            <div class="mb-3">
+                <h5 class="text-muted">Description</h5>
+                <p>@(string.IsNullOrEmpty(Model.Description) ? "-" : Model.Description)</p>
+            </div>
+
+            <hr />
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+                    <h6 class="text-muted">Priority</h6>
+                    <span class="badge bg-secondary fs-6">
+                        @Model.Priority
+                    </span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h6 class="text-muted">Deadline</h6>
+                    <p>
+                        @(Model.Deadline.HasValue
+                            ? Model.Deadline.Value.ToLocalTime().ToString("yyyy-MM-dd HH:mm")
+                            : "-")
+                    </p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h6 class="text-muted">Status</h6>
+                    <span class="badge bg-success fs-6">
+                        @TaskStatusHelper.GetStatus(Model)
+                    </span>
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="mb-3">
+                <h6 class="text-muted">Completed</h6>
+                @if (Model.IsCompleted)
+                {
+                    <span class="badge bg-success">Yes</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark">No</span>
+                }
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

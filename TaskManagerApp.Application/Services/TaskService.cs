@@ -53,6 +53,10 @@ public class TaskService : ITaskService
     {
         if (string.IsNullOrWhiteSpace(task.Title))
             throw new Exception("Title boş ola bilməz");
+        if (task.Deadline.HasValue)
+        {
+            task.Deadline = DateTime.SpecifyKind(task.Deadline.Value, DateTimeKind.Utc);
+        }
 
         if (task.Deadline.HasValue && task.Deadline < DateTime.Now)
             throw new Exception("Deadline keçmiş tarix ola bilməz");
